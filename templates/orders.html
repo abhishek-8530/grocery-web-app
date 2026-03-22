@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>📦 Orders</h2>
+
+{% if orders %}
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Status</th>
+    </tr>
+
+    {% for o in orders %}
+    <tr>
+        <td>{{ o.name }}</td>
+        <td>{{ o.qty }}</td>
+        <td>₹{{ o.price }}</td>
+        <td>{{ o.status }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% else %}
+<p>No orders yet</p>
+{% endif %}
+
+{% endblock %}

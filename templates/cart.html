@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>🛒 Cart</h2>
+
+{% if items %}
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <th>Action</th>
+    </tr>
+
+    {% for item in items %}
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>
+            <a href="/decrease/{{ item.id }}">➖</a>
+            {{ item.qty }}
+            <a href="/increase/{{ item.id }}">➕</a>
+        </td>
+        <td>₹{{ item.price }}</td>
+        <td>₹{{ item.subtotal }}</td>
+        <td><a href="/decrease/{{ item.id }}">Remove</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Total: ₹{{ total }}</h3>
+
+<form method="POST">
+    <label>Select Discount:</label>
+    <select name="discount">
+        <option value="0">No Discount</option>
+        <option value="10">10%</option>
+        <option value="20">20%</option>
+        <option value="30">30%</option>
+    </select>
+    <br><br>
+    <button type="submit">Apply & Proceed</button>
+</form>
+
+{% else %}
+<p>No items in cart</p>
+{% endif %}
+
+{% endblock %}

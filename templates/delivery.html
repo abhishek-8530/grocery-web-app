@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>🚚 Delivery Dashboard</h2>
+
+<a href="/clear_orders">🗑 Clear All Orders</a>
+
+{% for o in orders %}
+<div style="border:1px solid black; margin:10px; padding:10px;">
+    <p><b>{{ o.name }}</b></p>
+    <p>Status: {{ o.status }}</p>
+
+    <form method="POST" action="/update/{{ o.id }}">
+        <select name="status">
+            <option>Pending</option>
+            <option>Packed</option>
+            <option>Out for Delivery</option>
+            <option>Delivered</option>
+        </select>
+        <button type="submit">Update</button>
+    </form>
+</div>
+{% endfor %}
+
+{% endblock %}

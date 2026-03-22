@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Grocery Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dark">
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h1 class="logo">🛒 Grocery Pro</h1>
+
+    <div class="nav-links">
+        <a href="/catalog">🏠 Home</a>
+        <a href="/cart">🛒 Cart ({{ cart_count }})</a>
+        <a href="/orders">📦 Orders</a>
+        <a href="/delivery">🚚 Delivery</a>
+    </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-container">
+    <form method="GET">
+        <input type="text" name="search" value="{{ search }}" placeholder="🔍 Search products...">
+
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="Food">Food</option>
+            <option value="Daily">Daily</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<!-- PRODUCTS -->
+<div class="grid">
+{% for p in products %}
+<div class="card">
+
+    <h2>{{ p.name }}</h2>
+    <p class="price">₹{{ p.price }}</p>
+    <p class="stock">Stock: {{ p.stock }}</p>
+
+    <form method="POST" action="/add">
+        <input type="hidden" name="product_id" value="{{ p.id }}">
+        <button class="btn">Add to Cart</button>
+    </form>
+
+</div>
+{% endfor %}
+</div>
+
+<!-- FLOATING CART -->
+<a href="/cart" class="floating-cart">🛒 {{ cart_count }}</a>
+
+</body>
+</html>
